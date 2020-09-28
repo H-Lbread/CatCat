@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      h4,
+      p {
+        margin: 0;
+        font-weight: normal;
+      }
+      a {
+        text-decoration: none;
+      }
+
+      body {
+        background-color: #eee;
+      }
+      #app {
+        background-color: #fff;
+        width: 900px;
+        margin: 50px auto;
+        text-align: center;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+        padding: 1em 2em;
+      }
+
+      .list {
+        padding: 1em;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .book {
+        position: relative;
+        flex-basis: 22%;
+        margin-right: 2%;
+        margin-bottom: 1em;
+        text-align: center;
+        background-color: #fff;
+        padding: 1em 0;
+        transition: all 0.2s linear;
+      }
+
+      .book:hover {
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        transform: translate3d(0, -2px, 0);
+      }
+
+      .title {
+        line-height: 2em;
+        margin: 0;
+        padding: 0;
+      }
+
+      .figure img {
+        width: 150px;
+        height: 150px;
+      }
+
+      .desc {
+        margin: 0;
+        font-size: 16px;
+      }
+
+      .price {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .btn {
+        cursor: pointer;
+        position: absolute;
+        right: 0.8em;
+        top: 0.8em;
+        border: none;
+        color: #ff6700;
+        padding: 0.5em 0.5em;
+        font-size: 12px;
+      }
+
+      .btn:active {
+        border: none;
+      }
+
+      .btn:hover {
+        background-color: #ff6700;
+        color: #fff;
+      }
+
+      .cart {
+        border: 1px solid #eee;
+        background-color: #fff;
+        text-align: center;
+        position: fixed;
+        padding: 1em;
+        right: 100px;
+        top: 200px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <h3>我的购物车</h3>
+      <div class="list">
+        <div v-for="item in bookList" :key="item.id" class="book" :title="item.name">
+          <a href="javascript:;">
+            <div class="figure">
+              <img
+                :src="item.picSrc"
+                :alt="item.name"
+              />
+            </div>
+            <h4 class="title" :title="item.name">
+              {{ item.name }}
+            </h4>
+            <p class="desc"></p>
+            <p class="price"><span class="num">{{ item.price }}</span></p>
+          </a>
+          <button class="btn" title="移出购物车" @click="del(item.id)">-</button>
+        </div>
+      </div>
+      <div v-if="bookList.length === 0">购物车是空的！</div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      // 功能:
+      // 1. 渲染列表 
+      //    (1) v-for
+      //    (2) v-bind 设置标签属性
+      //    (3) {{ }} 渲染 h4 的内容
+      // 2. 删除
+      //    (1) 注册点击事件 @事件名, 需要传参, 需要传id
+      //    (2) 在methods中提供函数, 接收 id 值
+      //    (3) 根据 id 进行删除操作
+
+      // 3. 全部删完, 空的提示
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          bookList: [
+            {
+              id: 1,
+              name: '当你学会独处',
+              price: 29.9,
+              picSrc: 'http://img3m8.ddimg.cn/70/15/28522168-1_l_3.jpg'
+            },
+            {
+              id: 2,
+              name: 'JavaScript高级程序设计',
+              price: 78,
+              picSrc: 'http://img3m3.ddimg.cn/2/21/22628333-1_b_2.jpg'
+            },
+            {
+              id: 3,
+              name: '断舍离',
+              price: 29.9,
+              picSrc: 'http://img3m3.ddimg.cn/68/20/23271503-1_l_10.jpg'
+            },
+            {
+              id: 4,
+              name: '王子与贫儿',
+              price: 39.9,
+              picSrc: 'http://img3m0.ddimg.cn/67/20/28535530-1_l_3.jpg'
+            },
+            {
+              id: 5,
+              name: '高效能人士的七个习惯',
+              price: 59.3,
+              picSrc: 'http://img3m2.ddimg.cn/3/4/25253022-1_b_11.jpg'
+            }
+          ]
+        },
+        methods: {
+          del (id) {
+            // console.log('删除', id)
+            // 数据驱动, 根据 id 从数组中删除对应项即可 => 过滤, 保留不是该id的所有项
+            this.bookList = this.bookList.filter(item => item.id !== id)
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
