@@ -6,23 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
+    <script src="./vue.js"></script>
 </head>
 
 <body>
-    <div id="app">
-        {{ msg }}
+    <div id="main">
+        <div id="box">
+            <h1>{{msg}}</h1>
+        </div>
     </div>
 
-
-    <script src="./vue.js"></script>
     <script>
+        // 创建vue实例
         const vm = new Vue({
-            el: '#app',
+            el: '#main',
             data: {
-                msg: 'hello vue'
+                msg: 'i am your father'
             }
         })
+        console.log(vm.msg);
+        console.log(vm);
     </script>
+
 </body>
 
 </html>
