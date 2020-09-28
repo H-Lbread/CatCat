@@ -10,22 +10,46 @@
 </head>
 
 <body>
-    <div id="main">
+    <!-- <div id="main">
         <div id="box">
             <h1>{{msg}}</h1>
         </div>
+    </div> -->
+
+    <div id="app">
+        <h1>{{msg}}</h1>
+        <h1>{{money}}</h1>
+        <h1>{{house}}</h1>
+        <h1>{{obj.name}}</h1>
+        <h1>{{obj.age >20 ? '快死了' : '还早'}}</h1>
+        <h1>{{obj.desc}}</h1>
     </div>
 
     <script>
         // 创建vue实例
-        const vm = new Vue({
-            el: '#main',
+        // const vm = new Vue({
+        //     el: '#main',
+        //     data: {
+        //         msg: 'i am your father'
+        //     }
+        // })
+        // console.log(vm.msg);
+        // console.log(vm);
+
+
+        const app = new Vue({
+            el: '#app',
             data: {
-                msg: 'i am your father'
+                msg: 'i am you mather',
+                money: 1000,
+                house: '内蒙海景院',
+                obj: {
+                    name: 'bakabaka',
+                    age: 80,
+                    desc: 'en?'
+                }
             }
         })
-        console.log(vm.msg);
-        console.log(vm);
     </script>
 
 </body>
