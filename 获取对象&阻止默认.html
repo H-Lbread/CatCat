@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <a @click='fn1' href="http://www.baidu.com">去百度</a>
+        <a @click='fn2("zs",$event)' href="http://www.baidu.com">去百度</a>
+        <a @click.stop.prevent='fn3(100)' href="http://www.baidu.com">去百度</a>
+
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue'
+            },
+            methods: {
+                fn1(e) {
+                    e.preventDefault()
+                },
+                fn2(str, e) {
+                    e.preventDefault()
+                    console.log(e);
+                },
+                fn3(num) {
+                    console.log(num);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

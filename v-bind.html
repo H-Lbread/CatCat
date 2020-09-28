@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        v-bind 动态设置html标签属性（访问的是data中的数据）
+        语法：v-bind:属性名='属性值'
+        简写：:属性名='属性值'
+     -->
+    <!-- <div id="app">
+        <img :src="imgsrc" alt="" :title='info'>
+        <img v-bind:src="imgsrc" alt="" :title='iii'>
+    </div> -->
+
+    <div id="app">
+        <ul>
+            <li v-for='item in list'>{{item}}</li>
+        </ul>
+        <hr>
+        <ul>
+            <li v-for='(item,index) in list'>{{item}} {{index}}</li>
+        </ul>
+
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        // const vm = new Vue({
+        //     el: '#app',
+        //     data: {
+        //         imgsrc: '01.jpg',
+        //         info: '狗子',
+        //         iii: '还是狗子'
+        //     }
+        // })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                list: ['sili', 'bob', 'xiaoming']
+            }
+        })
+    </script>
+</body>
+
+</html>
