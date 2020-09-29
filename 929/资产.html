@@ -32,7 +32,7 @@
                         <td>{{index + 1}}</td>
                         <td>{{item.name}}</td>
                         <!-- 只要 item.price > 100, 就要加上 red 类 -->
-                        <td :class="{red:item.price >=100}">{{item.price}}</td>
+                        <td :class="{red:item.price >=100}">{{item.price | money}}</td>
                         <td><a @click="del(item.id)" href="javascript:;">删除</a></td>
                     </tr>
                 </tbody>
@@ -70,7 +70,11 @@
         //    (2) 点击时, 获取到两个输入框的值 v-model和两个输入框绑定
         //    (3) 添加操作
 
-        // 创建vue实例
+        // 定义过滤器
+        Vue.filter('money', function(value) {
+                return '💴' + value.toFixed(2)
+            })
+            // 创建vue实例
         const vm = new Vue({
             el: '#app',
             data: {
