@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        /* .base {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+            margin: 10px;
+        }
+        
+        .big {
+            width: 300px;
+            height: 200px;
+        }
+        
+        .pink {
+            background-color: rosybrown;
+        } */
+    </style>
+</head>
+
+<body>
+    <!-- 
+        v-bind不会影响到默认的class类名
+        语法    :class='对象/数组'
+        1、 :class='对象'
+            键就是类名，值是一个布尔值；
+        2、 :class='数组'
+            数组里面的项，就是需要添加的类名
+            [类名1，类名2，类名3,....]
+        
+    -->
+    <!-- <div id="app">
+        <div class="base" :class='obj'>{{ msg }}</div>
+        <div class="base" :class='arr'>{{ msg }}</div>
+        <div class="base" :class='{pink:isPink,big:isBig}'>{{ msg }}</div>
+    </div> -->
+    <!-- ----------------------------------------------------------- -->
+    <!-- 对style的增强 -->
+    <div id="app">
+        <div style="width: 200px; height: 100px; background-color: blue;" :style="styleObj">
+        </div>
+
+        <div style="width: 200px; height: 100px; background-color: blue;" :style="{ width: '200px', height: '200px', backgroundColor: 'pink'  }">
+        </div>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        // 对class的增强
+        // const vm = new Vue({
+        //     el: '#app',
+        //     data: {
+        //         msg: 'hello vue',
+        //         obj: {
+        //             pink: true,
+        //             big: true
+        //         },
+        //         arr: ['pink', 'big'],
+        //         isPink: true,
+        //         isBig: true
+        //     }
+        // })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                styleObj: {
+                    width: '400px',
+                    height: '200px',
+                    backgroundColor: 'red'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

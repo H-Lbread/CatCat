@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+
+</head>
+
+<body>
+    <!-- 
+    <
+            v-model：给表达元素使用   实现双向数据绑定
+            语法：  v-model='值'
+         
+    <div id="app">
+        <input type="text" v-model='msg'>
+        <hr> UserName:
+        <input type="text" v-model='username'><br><br> PassWord:
+        <input type="password" v-model='password'><br><br>
+        <button>Login</button>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue',
+                username: '',
+                password: ''
+            }
+        })
+    </script> -->
+    <div id="app">
+        <p>{{msg}}</p>
+        <input type="text" v-model='msg'>
+        <hr>
+        <p>{{hobbyId}}</p>
+        <select name="" id="" v-model='hobbyId'>
+            <option value="1">eat</option>
+            <option value="2">drink</option>
+            <option value="3">sa</option>
+        </select>
+        <hr>
+        <input type="checkbox" v-model='isSingle' checked>sadas
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hhhhhhhhh',
+                hobbyId: 2,
+                isSingle: false
+            }
+        })
+    </script>
+</body>
+
+</html>

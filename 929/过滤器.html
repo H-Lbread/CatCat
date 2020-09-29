@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{ msg | upper }}</h1>
+        <h1>{{ msg1 | upper }}</h1>
+    </div>
+
+
+    <script>
+        // 过滤器的基本使用
+        // 定义过滤器：
+        // Vue.filter(过滤器名字，处理字符串函数)
+        // 使用：
+        // {{ msg || 过滤器名字 }}
+
+        Vue.filter('upper', function(value) {
+            return value.toUpperCase()
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue',
+                msg1: 'wodesinian'
+            }
+        })
+    </script>
+</body>
+
+</html>
