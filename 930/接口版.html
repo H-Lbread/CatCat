@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .red {
+            color: red;
+        }
+        
+        .search {
+            width: 300px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+
+            <!-- 搜索 -->
+            <input v-model.trim="key" type="text" class="form-control search" placeholder="请输入搜索关键字">
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>资产名称</th>
+                        <th>价格</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in list" :key="item.id">
+                        <td>{{ index + 1 }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.price }}</td>
+                        <td><a @click="del(item.id)" href="javascript:;">删除</a></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">资产总价: xxx元</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <!-- 添加资产 -->
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input v-model.trim="name" type="text" class="form-control" placeholder="资产名称" />
+                    </div>
+                    &nbsp;&nbsp;
+                    <div class="input-group">
+                        <input v-model.trim.number="price" type="text" class="form-control" placeholder="资产价格" />
+                    </div>
+                </div>
+                &nbsp;&nbsp;
+                <!-- button默认是会提交form表单, 阻止默认行为 -->
+                <button @click.prevent="add" class="btn btn-primary">添加资产</button>
+            </form>
+        </div>
+    </div>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../vue.js"></script>
+    <script>
+        // 1. 进行vue实例化, 但是list数组初始化为 [], 数据应该后台请求回来的
+        //    问题: 在哪发送请求? 在vue中发, 一般这种初始化的ajax请求, 会在vue中 created中发送
+        //    created是一个函数 (生命周期函数) 在特定的阶段, 被vue自动调用执行
+        //    created在vue实例创建出来, data数据也基本初始化好时, 会自动调用, 适合在这里发送初始化的ajax请求
+        // 2. 发送请求
+        //    axios, 在created中发
+        // 3. 渲染
+        //    v-for
+        // 4. 删除
+        // (1) 点击事件 @click
+        // (2) 点击时要传 id
+        // (3) 接收到, 根据 id, 发送删除的请求了
+        // (4) 删除, 删除的是后台的数据, 需要重新渲染, 就需要将渲染的函数进行封装
+        // 5. 添加
+        // (1) v-model绑定两个输入框的值, 便于获取
+        // (2) 注册点击事件, 阻止默认的行为 .prevent
+        // (3) 发送添加的请求了 post
+        // (4) 重新渲染
+
+        // 6. 搜索
+        // (1) 获取搜索框的值 v-model绑定
+        // (2) 基于现有的数据, 根据搜索关键字, 过滤器展示
+        //     准备一个showList计算属性
+
+
+
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                list: [],
+                name: '',
+                price: 0,
+                key: ''
+            },
+            // 生命周期中的this指向vue实例  箭头函数
+            created() {
+                // console.log('vue已创建，created');
+                // 在这里发送请求  获取数据  将数据存到this.list中
+                this.getList()
+
+            },
+            methods: {
+                getList() {
+                    // 封装重新渲染函数
+                    axios.get('http://localhost:3000/list').then(res => {
+                        // console.log(res.data);
+                        this.list = res.data
+                    })
+                },
+
+                del(id) {
+                    // 根据id发送删除请求
+                    axios.delete(`http://localhost:3000/list/${id}`).then(res => {
+                        this.getList()
+                    })
+                },
+                add() {
+                    if (this.name === '') return
+                    if (this.price === '' || this.price <= 0) return
+                    axios.post('http://localhost:3000/list', {
+                        name: this.name,
+                        price: this.price
+                    }).then(res => {
+                        this.getList()
+                        this.name = ''
+                        this.price = ''
+                    })
+                },
+                computed: {
+                    showList() {
+                        // 根据key过滤出需要展示的内容
+                        return this.list.filter(item => item.name.includes(this.key))
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        使用：  
+            1 下载 npm i axios
+            2 引包
+            3 发送请求
+        axios({
+            method:请求方式,    // get post put patch delete
+            url: 请求地址,      // http://...
+            data:{},            // 参数对象  在body请求体中传递,  post put patch
+            params:{}           // 参数对象  在url地址栏中传递, ?xx=xx  get  delete
+
+        }).then(成功函数).catch(失败函数)
+     -->
+
+    <!-- 
+         发送请求比较简单时
+         简写：
+         1. get 和 delete类似
+            axios.get(url).then(成功函数)
+            axios.get(url,{
+                params:{...}
+            }).then(成功函数)
+        2.
+            axios.post(url,data).then(成功函数)
+      -->
+
+
+    <script>
+        // 1.测试 get 请求
+        // axios({
+        //     method: 'get',
+        //     url: 'http://localhost:3000/list'
+
+        // }).then((res) => {
+        //     console.log(res.data);
+        // }).catch((err) => {
+        //     console.log(err);
+        // })
+
+        // 2.测试 get 请求  搜索  地址栏拼接
+        // axios({
+        //     method: 'get',
+        //     url: 'http://localhost:3000/list?name_like=头发'
+        // }).then(res => {
+        //     console.log(res.data);
+        // })
+
+        // 在params中传递
+        // axios({
+        //     method: 'get',
+        //     url: 'http://localhost:3000/list',
+        //     params: {
+        //         name_like: '头发'
+        //     }
+        // }).then(res => {
+        //     console.log(res.data);
+        // })
+
+        // 3.发送 post 请求
+        // axios({
+        //     method: 'post',
+        //     url: 'http://localhost:3000/list',
+        //     data: {
+        //         name: '棒棒糖',
+        //         price: 2.5
+        //     }
+        // }).then(res => {
+        //     console.log(res.data);
+        //     console.log('success!');
+        // })
+
+        // 4. 全部修改 put  (简写版)
+        // axios.put('http://localhost:3000/list/5', {
+        //     name: '火车',
+        //     price: 899
+        // }).then(res => {
+        //     console.log('yes');
+        // })
+
+        // 5.局部修改 patch
+        // axios.patch('http://localhost:3000/list/4', {
+        //     name: '地铁'
+        // }).then(res => {
+        //     console.log('yes');
+        // })
+
+        //
+    </script>
+</body>
+
+</html>
