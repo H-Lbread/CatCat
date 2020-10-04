@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- v-if 和 v-else -->
+    <div id="app">
+        <h1 v-if='isLogin'>vip hello</h1>
+        <h1 v-else>please login</h1>
+        <h1 v-if='age > 80'>80+ play car</h1>
+        <h1 v-else-if='age>60'>60+ car</h1>
+        <h1 v-else-if='age>20'>20+ die</h1>
+        <h1 v-else>20- donghuapian </h1>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue',
+                isLogin: true,
+                age: 12
+            }
+        })
+    </script>
+</body>
+
+</html>

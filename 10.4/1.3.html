@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- Vue指令 一些特殊的html标签属性  v-开头
+    每个指令有着自己独立的功能 -->
+
+    <!-- v-text 设置元素的innerText 不识别标签
+    v-html 设置元素的innerHtml 可以识别标签 -->
+    <div id="app">
+        <a href="#">{{ msg }}</a> <br>
+        <a href="#" v-text='msg'></a>
+        <a href="#" v-html='msg'></a>
+
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                msg: '<h1>哈哈哈哈哈哈哈</h1>'
+            }
+        })
+    </script>
+</body>
+
+</html>
