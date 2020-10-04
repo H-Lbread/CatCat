@@ -35,16 +35,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, index) in list" :key="item.id">
+                    <tr v-for="(item, index) in showList" :key="item.id">
                         <td>{{ index + 1 }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.price }}</td>
+                        <td>💴{{ item.price }}</td>
                         <td><a @click="del(item.id)" href="javascript:;">删除</a></td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="4">资产总价: xxx元</td>
+                        <td colspan="4">资产总价:{{ total | money }}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -94,7 +94,9 @@
         //     准备一个showList计算属性
 
 
-
+        Vue.filter('money', function(value) {
+            return '💴' + (+value).toFixed(2)
+        })
 
         const vm = new Vue({
             el: '#app',
@@ -139,10 +141,16 @@
                     })
                 },
                 computed: {
+                    total() {
+                        let totalPrice = 0
+                        this.showList.forEach(item => totalPrice += item.price)
+                        return totalPrice
+                    },
                     showList() {
                         // 根据key过滤出需要展示的内容
                         return this.list.filter(item => item.name.includes(this.key))
                     }
+
                 }
             }
         })
