@@ -23,7 +23,7 @@
         <div class="container">
 
             <!-- 搜索 -->
-            <input v-model.trim="key" type="text" class="form-control search" placeholder="请输入搜索关键字">
+            <input v-model.trim='key' type="text" class="form-control search" placeholder="请输入搜索关键字">
 
             <table class="table table-bordered table-hover">
                 <thead>
@@ -36,15 +36,15 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in showList" :key="item.id">
-                        <td>{{ index + 1 }}</td>
-                        <td>{{ item.name }}</td>
+                        <td>{{ index+1 }}</td>
+                        <td>{{ item.name}}</td>
                         <td>💴{{ item.price }}</td>
                         <td><a @click="del(item.id)" href="javascript:;">删除</a></td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="4">资产总价:{{ total | money }}</td>
+                        <td colspan="4">资产总价:{{total}}元</td>
                     </tr>
                 </tfoot>
             </table>
@@ -94,36 +94,25 @@
         //     准备一个showList计算属性
 
 
-        Vue.filter('money', function(value) {
-            return '💴' + (+value).toFixed(2)
-        })
-
         const vm = new Vue({
-            el: '#app',
+            el: "#app",
             data: {
                 list: [],
                 name: '',
                 price: 0,
                 key: ''
             },
-            // 生命周期中的this指向vue实例  箭头函数
             created() {
-                // console.log('vue已创建，created');
-                // 在这里发送请求  获取数据  将数据存到this.list中
+                // 
                 this.getList()
-
             },
             methods: {
                 getList() {
-                    // 封装重新渲染函数
                     axios.get('http://localhost:3000/list').then(res => {
-                        // console.log(res.data);
                         this.list = res.data
                     })
                 },
-
                 del(id) {
-                    // 根据id发送删除请求
                     axios.delete(`http://localhost:3000/list/${id}`).then(res => {
                         this.getList()
                     })
@@ -139,20 +128,17 @@
                         this.name = ''
                         this.price = ''
                     })
-                },
-
+                }
             },
             computed: {
-                total() {
-                    let totalPrice = 0
-                    this.showList.forEach(item => totalPrice += item.price)
-                    return totalPrice
-                },
                 showList() {
-                    // 根据key过滤出需要展示的内容
                     return this.list.filter(item => item.name.includes(this.key))
+                },
+                total() {
+                    let sum = 0
+                    this.showList.forEach(item => sum += item.price)
+                    return sum
                 }
-
             }
         })
     </script>
