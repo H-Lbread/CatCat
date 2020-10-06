@@ -38,13 +38,13 @@
                     <tr v-for="(item, index) in showList" :key="item.id">
                         <td>{{ index + 1 }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.price }}</td>
+                        <td>￥{{ item.price }}</td>
                         <td><a @click='del(item.id)' href="javascript:;">删除</a></td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="4">资产总价:</td>
+                        <td colspan="4">资产总价:￥{{ total }}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -132,6 +132,11 @@
             computed: {
                 showList() {
                     return this.list.filter(item => item.name.includes(this.key))
+                },
+                total() {
+                    let sum = 0
+                    this.showList.forEach(item => sum += item.price)
+                    return sum
                 }
             }
         })
