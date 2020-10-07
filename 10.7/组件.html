@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{ msg }}
+        <gg-demo></gg-demo>
+        <gg-demo></gg-demo>
+        <gg-demo></gg-demo>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        // 1 定义组件
+        // Vue.component(组件名,组件的配置对象)
+        // 2 组件的使用
+        // 当成html的标签使用
+
+        // 注意点： 1 必须是一个整体  有且只能有一个根元素
+        Vue.component('gg-demo', {
+            // 组件模板结构 决定了组件长成什么样子
+            template: `
+            <div>
+                <button>123</button><p>demo</p>
+            </div>`
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue'
+            }
+        })
+    </script>
+</body>
+
+</html>
