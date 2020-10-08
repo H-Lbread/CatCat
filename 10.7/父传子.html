@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <son house='big house' car='baby car' :money='money'></son>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component('son', {
+            template: `
+            
+            <div class="son">
+            <h3>我是子组件</h3>
+            <p>传过来的数据: {{ house }} - {{ car }} - {{ money }} </p>
+          </div>
+            
+            `,
+            props: ['house', 'car', 'money']
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue',
+                money: 1000000
+            }
+        })
+    </script>
+</body>
+
+</html>

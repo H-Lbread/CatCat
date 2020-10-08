@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        #app {
+            width: 400px;
+            height: 400px;
+            background-color: pink;
+        }
+        
+        .son {
+            width: 300px;
+            height: 200px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 根组件的模板范围 -->
+    <div id="app">
+        <son :money="money" desc="abc"></son>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component('son', {
+            template: `
+          <div class="son">
+            <h3>子组件</h3>
+            <p>传过来的: {{ money }} - {{ desc }}</p>
+            <p>自己的: {{ msg }}</p>
+            <button @click="fn">改</button>
+          </div>
+        `,
+            data() {
+                return {
+                    msg: '你好'
+                }
+            },
+            methods: {
+                fn() {
+                    // this.msg = '不错'
+                    this.money = 1
+                }
+            },
+            props: ['money', 'desc']
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue',
+                money: 10000
+            }
+        })
+    </script>
+</body>
+
+</html>

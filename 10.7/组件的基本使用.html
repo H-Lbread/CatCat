@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <gg-div></gg-div>
+    </div>
+
+
+    <script>
+        Vue.component('gg-div', {
+            template: `
+            <div>
+                <a href='#'>123123</a>
+                <button>按钮</button>
+            </div>
+        `
+        })
+
+        // 
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue'
+            }
+        })
+    </script>
+</body>
+
+</html>
