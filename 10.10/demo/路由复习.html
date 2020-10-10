@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+    <!-- 
+          1. 下载
+          2. 引包
+          3. 创建路由实例
+          4. 挂载
+          5. 配置路由规则
+             { path: '/home', component: 组件配置对象 }
+          6. 配置路由出口 
+             <router-view></router-view>  视图展示, 控制路由的出口 (决定了匹配时, 展示组件的位置)
+             <router-link></router-link>  导航链接, 跳转路由
+    -->
+    <script src="../vue.js"></script>
+    <script src="../vue-router.js"></script>
+    <script>
+        const Home = {
+            template: `
+            <div>HOME</div>
+            `
+        }
+
+        const router = new VueRouter({
+            routes: [{
+                path: '/',
+                redirect: '/home'
+            }, {
+                path: '/home',
+                component: Home
+            }, {
+                path: '/list',
+                component: {
+                    template: `<div>LIST</div>`
+                }
+            }, {
+                path: '/login',
+                component: {
+                    template: `<div>LOGIN</div>`
+                }
+            }]
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue'
+            },
+            router
+        })
+    </script>
+</body>
+
+</html>

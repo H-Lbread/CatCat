@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <script src="../vue-router.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <h3>导航部分</h3>
+        <router-link to='/home'>HOME</router-link>
+        <router-link to='/login'>login</router-link>
+        <router-link to='/list'>list</router-link>
+        <router-link to='/user/333333'>333333</router-link>
+        <router-link to='/product?id=1000'>id10000</router-link>
+        <hr>
+        <router-view></router-view>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        const Home = {
+            template: `<div>HOME</div>`
+        }
+        const router = new VueRouter({
+            routes: [{
+                    path: '/',
+                    redirect: '/home'
+                }, {
+                    path: '/home',
+                    component: Home
+                }, {
+                    path: '/login',
+                    component: {
+                        template: `<div>LOGIN</div>`
+                    }
+                }, {
+                    path: '/list',
+                    component: {
+                        template: `<div>LIST</div>`
+                    }
+                }, {
+                    path: '/user/:id',
+                    component: {
+                        template: `<div>user{{ $route.params.id}}</div>`
+                    }
+                }, {
+                    path: '/product',
+                    component: {
+                        template: `<div>商品</div>`
+                    }
+                }
+
+            ]
+
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue'
+            },
+            router
+        })
+    </script>
+</body>
+
+</html>

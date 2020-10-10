@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 设置视口 -->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>乐淘电商</title>
+    <link rel="stylesheet" href="./lib/mui/css/mui.css">
+    <link rel="stylesheet" href="./lib/fa/css/font-awesome.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="./js/jquery.js"></script>
+</head>
+
+<body>
+
+    <div class="lt_container" id="app">
+        <div class="lt_header">
+            <a href="index.html" class="icon_left"><i class="fa fa-home"></i></a>
+            <h3>乐淘云购</h3>
+            <a href="search.html" class="icon_right"><i class="fa fa-search"></i></a>
+        </div>
+
+        <div class="lt_main">
+            <router-view></router-view>
+        </div>
+
+        <div class="lt_footer">
+            <ul>
+                <li>
+                    <!-- class="current"  -->
+                    <router-link to="/home">
+                        <i class="fa fa-home"></i>
+                        <p>首页</p>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/category">
+                        <i class="fa fa-bars"></i>
+                        <p>分类页</p>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/cart">
+                        <i class="fa fa-shopping-cart"></i>
+                        <p>购物车</p>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/user">
+                        <i class="fa fa-user"></i>
+                        <p>用户中心</p>
+                    </router-link>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script>
+        // 需求: 基于路由, 实现单页切换的效果
+        const Home = {
+            template: `
+          <div>首页</div>
+          `
+        }
+
+        const Category = {
+            template: `
+        <div>
+            <router-link to='/category'>默认</router-link>
+            <router-link to='/category/first'>一级</router-link>
+            <router-link to='/category/second'>二级</router-link>
+            <router-view></router-view>
+        </div>
+      `
+        }
+        const First = {
+            template: `<div>yi ji</div>`
+        }
+        const Second = {
+            template: `<div>er ji</div>`
+        }
+        const Default = {
+            template: `
+          <div>默认</div>
+          `
+        }
+
+        const Cart = {
+            template: `
+            <div>购物车</div>
+          `
+        }
+
+        const User = {
+            template: `
+        <div>
+            <router-link to='/user/login'>登录</router-link>
+            <router-link to='/user/zhuce'>注册</router-link>
+            
+            <router-view></router-view>
+        </div>`
+        }
+        const Login = {
+            template: `<div>请登陆</div>`
+        }
+        const Zhuce = {
+                template: `<div>请注册</div>`
+            }
+            // ---------------------------------------------------------------------------------
+
+        // ------------------------------------------------------------------ ---------------
+        const router = new VueRouter({
+            routes: [{
+                path: '/',
+                redirect: '/home'
+            }, {
+                path: '/home',
+                component: Home
+            }, {
+                path: '/category',
+                component: Category,
+                children: [{
+                    path: '',
+                    component: Default
+                }, {
+                    path: 'first',
+                    component: First
+                }, {
+                    path: 'second',
+                    component: Second
+                }]
+            }, {
+                path: '/cart',
+                component: Cart
+            }, {
+                path: '/user',
+                component: User,
+                children: [{
+                    path: 'login',
+                    component: Login
+                }, {
+                    path: 'zhuce',
+                    component: Zhuce
+                }]
+            }]
+        })
+
+        // 创建vue实例
+        const vm = new Vue({
+            el: '#app',
+            data: {},
+            router
+        })
+    </script>
+
+
+</body>
+
+</html>
