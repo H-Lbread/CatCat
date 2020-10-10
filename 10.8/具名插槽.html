@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        .modal {
+            border: 3px solid #000;
+            padding: 5px;
+            margin: 5px;
+            width: 300px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <gg-modal title="警告">
+            <template v-slot:content>
+                <input type="text"> <br>
+                <input type="text"> <br>
+                <input type="text"> <br>
+            </template>
+
+            <template v-slot:footer>
+                <button>yes</button>
+                <button>no</button>
+            </template>
+        </gg-modal>
+
+
+    </div>
+
+
+
+
+    <script>
+        // 插槽:
+        // 1. 默认插槽(匿名插槽), 只要没有具体指派的内容, 一律会给到默认插槽
+        //    <slot></slot>
+        // 2. 具名插槽: 具有名字的插槽, 只会接收对应指派的内容, 如果不是指派给他的, 他不要
+        //    (1) 给插槽起名字, <slot name="content"></slot>
+        //    (2) 需要使用 template 标签, 将要分发的内容包裹
+        //    (3) 通过 v-slot:插槽名 具体指派
+
+        Vue.component('gg-modal', {
+            template: `
+            <div class="modal">
+            <div class="title">
+              <h3>{{ title }}</h3>
+            </div>
+            <div class="content">
+              <slot name='content'></slot>
+            </div>
+            <div class="footer">
+                <slot name='footer'></slot>
+              
+            </div>
+
+            
+          </div> 
+            `,
+            props: ['title']
+        })
+
+        const vm = new Vue({
+            el: "#app",
+            data: {
+
+            }
+        })
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

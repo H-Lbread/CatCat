@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #ccc;
+        }
+        
+        #app {
+            width: 400px;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 4px solid blueviolet;
+            border-radius: 1em;
+            box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+            padding: 1em 2em 2em;
+        }
+        
+        .pannel {
+            margin-bottom: 30px;
+        }
+        
+        h3 {
+            text-align: center;
+        }
+        
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ccc;
+            padding: 0 1em;
+        }
+        
+        .title h4 {
+            line-height: 2;
+            margin: 0;
+        }
+        
+        .container {
+            border: 1px solid #ccc;
+            padding: 0 1em;
+        }
+        
+        .btn {
+            /* 鼠标改成手的形状 */
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <modal title='警告'>
+            <template v-slot:content>
+
+            <input type="text"><br>
+            <input type="text"><br>
+            <input type="text"><br>
+            <input type="text"><br>
+          </template>
+        </modal>
+        <modal title='提示'>
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p>
+        </modal>
+    </div>
+
+    <!-- 
+      1\ 默认插槽
+      <slot></slot> 标签 用于接收分发的内容 可以完成组件的定制 
+      2、具名插槽
+      用 template 将分发的内容包起来
+      通过 v-slot:插槽名 具体指派-----------<slot name='插槽名'></slot>
+      3、作用域插槽
+      插槽传值用法 定义插槽时可以提供数据 
+    -->
+    <script src="./vue.js"></script>
+    <script>
+        // 需求: 点击展开或收起时，把内容区域显示或者隐藏
+        Vue.component('modal', {
+            template: `
+            <div class="modal">
+              <div class="title">
+                  <h3>{{title}}</h3>
+              </div>
+              <div class="content">
+                  <slot name='content'></slot>
+              </div>
+              <div class="footer">
+                  <button>确认</button>
+                  <button>取消</button>
+              </div>
+        </div>
+        `,
+            props: ['title'],
+
+        })
+
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                testTitle: '测试标题'
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        .my-subject {
+            border: 1px solid #000;
+            width: 300px;
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 谁的模板范围, 就是谁的作用域, 用的就是谁的变量 -->
+    <div id="app">
+        <h4>测试题</h4>
+        <my-subject @submit-ans="submitAns" v-for="item in list" :key="item.id" :subjectid="item.id">
+        </my-subject>
+        <p>
+            <span v-for='item in list' :key='item.id'>{{ item.id }} {{ item.ans }}</span>
+        </p>
+        <!-- 在生成这个题目时, 就应该父传子, 将 id 传递进去 -->
+
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        Vue.component('my-subject', {
+            template: `
+                <div class='my-subject'>
+                    <span>{{ num1 }}</span> +
+                    <span>{{ num2 }}</span> =
+                    <input type="text" class='sum' v-model.trim.number='sum'/>
+                    <button :disabled='isSubmit' @click='submit'>提交</button>
+                </div>
+            
+            `,
+            data() {
+                return {
+                    num1: parseInt(Math.random() * 10),
+                    num2: parseInt(Math.random() * 10),
+                    sum: '',
+                    isSubmit: false //提交后禁止点击
+                }
+            },
+            methods: {
+                submit() {
+                    const result = (this.num1 + this.num2) === this.sum ? '正确' : '错误'
+                    this.$emit('submit-ans', {
+                        id: this.subjectid,
+                        ans: result
+                    })
+                    this.isSubmit = true
+                }
+            },
+            props: ['subjectid']
+        })
+
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                list: [{
+                    id: 1,
+                    ans: '未完成'
+                }, {
+                    id: 2,
+                    ans: '未完成'
+                }, {
+                    id: 3,
+                    ans: '未完成'
+                }, {
+                    id: 4,
+                    ans: '未完成'
+                }]
+            },
+            methods: {
+                submitAns(obj) {
+                    const ansObj = this.list.find(item => item.id === obj.id)
+                    ansObj.ans = obj.ans
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

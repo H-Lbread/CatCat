@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+
+    <style>
+        .modal {
+            border: 3px solid #000;
+            padding: 5px;
+            margin: 5px;
+            width: 300px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <pp-modal title="警告">
+            <template v-slot:content>
+                <input type="text"><br>
+                <input type="text"><br>
+                <input type="text"><br>
+            </template>
+
+            <template v-slot:footer="obj">
+                <button>{{ obj.yes }}</button>
+                <button>{{ obj.no }}</button>
+            </template>
+        </pp-modal>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        Vue.component("pp-modal", {
+            template: `
+                <div class="modal">
+                    <div class='title'>
+                        <h3>{{ title }}</h3>
+                    </div>
+                    <div class='content'>
+                        <slot name="content"></slot>
+                    </div>
+                    <div class='footer'>
+                        <slot name='footer' money='11111' title='标题' :yes='yes' :no='no'></slot>
+                    </div>
+                </div>
+
+            `,
+            data() {
+                return {
+                    yes: 'yes',
+                    no: 'no'
+                }
+            },
+            props: ['title']
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue'
+            }
+        })
+    </script>
+</body>
+
+</html>

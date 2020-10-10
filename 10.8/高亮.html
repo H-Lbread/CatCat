@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        .router-link-exact-active {
+            color: red;
+            font-size: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>单页应用程序</h3>
+        <ul>
+            <li>
+                <router-link to="/home">首页</router-link>
+            </li>
+            <li>
+                <router-link to="/list">列表</router-link>
+            </li>
+            <li>
+                <router-link to="/login">登录</router-link>
+            </li>
+        </ul>
+        <router-view></router-view>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+
+    <script>
+        const router = new VueRouter({
+            routes: [{
+                path: '/',
+                redirect: '/home'
+            }, {
+                path: '/home',
+                component: {
+                    template: `<div>Home</div>`
+                }
+            }, {
+                path: '/list',
+                component: {
+                    template: `<div>list</div>`
+                }
+            }, {
+                path: '/login',
+                component: {
+                    template: `<div>login</div>`
+                }
+            }, ]
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue'
+            },
+            router
+        })
+    </script>
+</body>
+
+</html>

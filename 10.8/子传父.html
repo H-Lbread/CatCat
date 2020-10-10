@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        #app {
+            width: 400px;
+            height: 400px;
+            background-color: pink;
+        }
+        
+        .son {
+            width: 300px;
+            height: 200px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 模板的范围是谁的, 就是属于谁的一个作用域, 用的就是谁的变量 -->
+    <!-- 这里整个模板, 都是根组件的模板 -->
+    <div id="app">
+        <h1>父组件 - {{ money }} - {{ car }}</h1>
+        <son @sb="fatherFn"></son>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        Vue.component('son', {
+            template: `
+                <div class='son'>
+                    <h3> 子组件 - {{ money }}</h3>
+                    <button @click='send'>奥里给</button>
+                </div>
+            `,
+            data() {
+                return {
+                    money: '1000'
+                }
+            },
+            methods: {
+                send() {
+                    this.$emit('sb', this.money, '宝马车')
+                }
+            }
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue',
+                money: '',
+                car: ''
+            },
+            methods: {
+                fatherFn(money, car) {
+                    // console.log(money, car)
+                    this.money = money
+                    this.car = car
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
